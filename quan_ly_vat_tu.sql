@@ -30,7 +30,7 @@ create table nha_cc(
 create table ncc_sdt(
 	ma_sdt_ncc int not null auto_increment,
     ma_ncc int not null,
-    sdt varchar(10) not null,
+    sdt varchar(10) not null unique,
     primary key (ma_sdt_ncc),
     
     foreign key (ma_ncc) references nha_cc(ma_ncc) on delete cascade
