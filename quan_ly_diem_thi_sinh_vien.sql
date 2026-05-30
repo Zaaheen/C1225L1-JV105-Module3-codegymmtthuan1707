@@ -60,8 +60,18 @@ values
 	(1, 1, 8, 1),
 	(1, 2, 10, 2),
 	(2, 1, 12, 1);
-    
-select * from classes;
+
+select * from students where student_name like 'h%';
+
+select * from classes where month(start_date) = 12;
+
+select * from subjects where credit between 3 and 5;
+
+update students set class_id = 2 where student_id = 1;
 select * from students;
-select * from subjects;
-select * from marks;
+
+select students.student_name, subjects.subject_name, marks.mark
+from marks
+join students on marks.student_id = students.student_id
+join subjects on marks.student_id = subjects.subject_id
+order by marks.mark desc, students.student_name asc;
