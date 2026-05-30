@@ -75,3 +75,21 @@ from marks
 join students on marks.student_id = students.student_id
 join subjects on marks.student_id = subjects.subject_id
 order by marks.mark desc, students.student_name asc;
+
+-- Luyện tập các hàm thông dụng trong SQL
+
+select * from subjects 
+where credit = (select max(credit) from subjects);
+
+select subjects.subject_id, subjects.subject_name, credit, subjects.status, marks.mark
+from subjects 
+join marks on subjects.subject_id = marks.subject_id
+where marks.mark = (select max(mark) from marks);
+
+select 
+    students.student_id, students.student_name ,
+    avg(marks.mark) as `điểm trung bình`
+from students 
+join marks on students.student_id = marks.student_id
+group by students.student_id, students.student_name
+order by `điểm trung bình` desc;
