@@ -94,20 +94,26 @@ values
     (2, 5, 4), 
     (2, 3, 3); 
     
+-- Hiển thị các thông tin  gồm oID, oDate, oPrice của tất cả các hóa đơn trong bảng Order
 select id, order_date, total_amount 
 from orders;
 
-select customers.customer_name, products.product_name
+-- Hiển thị danh sách các khách hàng đã mua hàng, và danh sách sản phẩm được mua bởi các khách
+select customers.id, customers.customer_name,
+	group_concat( distinct products.product_name separator ', ') as 'danh sách sản phẩm'
 from customers
 join orders on customers.id = orders.customer_id
 join order_details on orders.id = order_details.order_id
-join products on order_details.product_id = products.id;
+join products on order_details.product_id = products.id
+group by customers.id, customers.customer_name;
 
+-- Hiển thị tên những khách hàng không mua bất kỳ một sản phẩm nào
 select customers.id, customer_name 
 from customers
 left join orders on customers.id = orders.customer_id
 where orders.customer_id is null;
 
+-- Hiển thị mã hóa đơn, ngày bán và giá tiền của từng hóa đơn
 select orders.id, orders.order_date,
 	sum(order_details.quantity * products.price) as total
 from orders
