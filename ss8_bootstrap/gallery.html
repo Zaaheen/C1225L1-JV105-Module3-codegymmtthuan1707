@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <style>
+        .gallery-img-uniform {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container-fluid">
+        <h2 class="fs-2 mb-2">Responsive Image Gallery</h2>
+        <p class="fw-bold text-muted mb-4">Resize the browser window to see the effect.</p>
+        <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="border">
+                <img src="https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?auto=format&fit=crop&w=600&q=80"
+                     class="gallery-img-uniform" alt="">
+                <div class="p-3 text-center text-secondary small">Add a description of the image here</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="border">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                     class="gallery-img-uniform" alt="">
+                <div class="p-3 text-center text-secondary small">Add a description of the image here</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="border">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                     class="gallery-img-uniform" alt="">
+                <div class="p-3 text-center text-secondary small">Add a description of the image here</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="border">
+                <img src="https://images.unsplash.com/photo-1485594050903-8e8ee7b071a8?auto=format&fit=crop&w=600&q=80"
+                     class="gallery-img-uniform" alt="">
+                <div class="p-3 text-center text-secondary small">Add a description of the image here</div>
+            </div>
+        </div>
+        <div class="mt-4 text-dark small">
+            <p>This example uses Bootstrap's grid system to re-arrange the images on different screen sizes: for screens larger than 768px wide (md), it will show four images side by side, for screens smaller than 768px but larger than 576px (sm), it will show two images side by side. For screens smaller than 576px, the images will stack vertically (100%).</p>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+</html>
