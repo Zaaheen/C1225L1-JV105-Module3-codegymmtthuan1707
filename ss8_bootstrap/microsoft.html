@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Surface - Laptops, Tablets & Computers Storefront</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* ==========================================================
+           DESIGN TOKENS - MICROSOFT SURFACE SYSTEM (IMPLEMENTED)
+           ========================================================== */
+        :root {
+            /* Typography Tokens */
+            --font-family-primary: 'Segoe UI', SegoeUI, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-md: 13px;
+            --font-size-lg: 14px;
+            --font-size-xl: 14.25px;
+            --font-size-2xl: 15px;
+            --font-size-3xl: 16px;
+            --font-size-4xl: 19px;
+
+            --font-weight-base: 400;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --line-height-base: 16px;
+
+            /* Color Tokens */
+            --color-surface-base: #ffffff;
+            --color-surface-dark: #000000;
+            --color-surface-light: #f2f2f2;
+            --color-surface-strong: #cccccc;
+            --color-text-primary: #000000;
+            --color-text-secondary: #616161;
+            --color-text-link: #0067b8;
+            --color-text-inverse: #ffffff;
+
+            /* Spacing Tokens */
+            --space-1: 1px;
+            --space-2: 2px;
+            --space-3: 4px;
+            --space-4: 5px;
+            --space-5: 6px;
+            --space-6: 7px;
+            --space-7: 8px;
+            --space-8: 9px;
+
+            /* Radius/Border Tokens */
+            --radius-xs: 2px;
+            --radius-sm: 3px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 18px;
+            --radius-2xl: 20px;
+            --radius-step7: 24px;
+            --radius-step8: 50px;
+
+            /* Motion Tokens */
+            --motion-duration-instant: 100ms;
+            --motion-duration-fast: 600ms;
+        }
+
+        /* Base Elements Overrides with Design Tokens */
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-base);
+            line-height: var(--line-height-base);
+            background-color: var(--color-surface-base);
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Accessibility FOCUS-VISIBLE Requirements (WCAG 2.2 AA) */
+        *:focus-visible {
+            outline: 2px solid var(--color-text-link) !important;
+            outline-offset: 3px !important;
+            box-shadow: 0 0 0 2px var(--color-surface-base) !important;
+        }
+
+        /* Custom Scrollbar for Microsoft look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-surface-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-surface-strong);
+            border-radius: var(--radius-xs);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-secondary);
+        }
+
+        /* Fluent Design Transitions & Custom Styles */
+        .fluent-transition {
+            transition: all var(--motion-duration-fast) cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-ms-primary {
+            background-color: var(--color-text-link);
+            color: var(--color-text-inverse);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--radius-xs);
+            border: 1px solid transparent;
+            padding: 10px 24px;
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color var(--motion-duration-instant) ease;
+        }
+        .btn-ms-primary:hover {
+            background-color: #005a9e;
+            color: var(--color-text-inverse);
+        }
+
+        .btn-ms-pill-dark {
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: var(--font-weight-semibold);
+            border-radius: 20px;
+            border: 1px solid transparent;
+            padding: 8px 24px;
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity var(--motion-duration-instant) ease;
+        }
+        .btn-ms-pill-dark:hover {
+            opacity: 0.85;
+            color: #ffffff;
+        }
+
+        /* Customized Cards matching Microsoft 1:1 shape */
+        .ms-card-promo {
+            border: 1px solid #e6e6e6;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--color-surface-base);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .ms-card-promo:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            border-color: var(--color-surface-strong);
+        }
+
+        /* Accordion Style using HTML5 Details/Summary without JS */
+        .ms-faq-item {
+            border-bottom: 1px solid #e6e6e6;
+            padding: 16px 0;
+        }
+        .ms-faq-item summary {
+            list-style: none;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ms-faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .ms-faq-item summary::after {
+            content: "\F282"; /* Bootstrap Icon Chevron Down */
+            font-family: "bootstrap-icons";
+            font-size: 14px;
+            transition: transform 0.2s ease;
+        }
+        .ms-faq-item[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .ms-faq-content {
+            padding-top: 12px;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-lg);
+            line-height: 1.5;
+        }
+
+        /* Side Drawer for Cart matching exact specs */
+        .cart-drawer-container {
+            width: 320px;
+            z-index: 1050;
+        }
+
+        /* Blur helper for custom backdrop styling */
+        .backdrop-blur-xs {
+            backdrop-filter: blur(4px);
+        }
+
+        /* Custom spacing utility to replace Tailwind space-y */
+        .ms-gap-container > * + * {
+            margin-top: 1rem;
+        }
+
+        .bg-ms-purple {
+            background-color: #7c3aed;
+        }
+
+        .font-size-xs {
+            font-size: var(--font-size-xs);
+        }
+
+        .font-size-sm {
+            font-size: var(--font-size-sm);
+        }
+
+        /* Style chuẩn đồng bộ góc bo tròn và tối ưu hóa khung ảnh */
+        .product-img {
+            border-radius: var(--radius-md);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-h-screen">
+
+<!-- A11Y: Skip to Main Content Link -->
+<a href="#main-content" class="visually-hidden-focusable position-absolute z-3 p-3 bg-white text-primary border">
+    Chuyển trực tiếp đến nội dung chính
+</a>
+
+<!-- 1. MICROSOFT BRAND HEADER -->
+<header class="border-bottom border-secondary-subtle sticky-top bg-white bg-opacity-95 z-3">
+    <div class="container-xxl px-4 d-flex align-items-center justify-content-between" style="height: 56px;">
+
+        <!-- Logo and Main Navigation Left -->
+        <nav class="d-flex align-items-center gap-4" aria-label="Menu điều hướng chính Microsoft">
+            <a href="#" class="d-flex align-items-center gap-2 py-2 text-decoration-none" aria-label="Trang chủ Microsoft">
+                <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect width="11" height="11" fill="#F25022"/>
+                    <rect x="12" width="11" height="11" fill="#7FBA00"/>
+                    <rect y="12" width="11" height="11" fill="#00A4EF"/>
+                    <rect x="12" y="12" width="11" height="11" fill="#FFB900"/>
+                </svg>
+                <span class="fw-bold text-dark tracking-tight" style="font-size: var(--font-size-3xl); line-height: 1;">Microsoft</span>
+            </a>
+
+            <span class="vr bg-secondary-subtle d-none d-md-block" style="height: 20px;"></span>
+            <a href="#" class="fw-semibold text-dark text-decoration-none d-none d-md-block hover:underline" style="font-size: var(--font-size-2xl);">Surface</a>
+
+            <ul class="nav d-none d-lg-flex align-items-center gap-3 text-secondary" style="font-size: var(--font-size-sm);">
+                <li class="nav-item"><a href="#" class="nav-link p-0 text-secondary hover:text-dark">Surface Pro</a></li>
+                <li class="nav-item"><a href="#" class="nav-link p-0 text-secondary hover:text-dark">Surface Laptop</a></li>
+                <li class="nav-item"><a href="#" class="nav-link p-0 text-secondary hover:text-dark">Surface Laptop Studio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link p-0 text-secondary hover:text-dark">Phụ kiện</a></li>
+                <li class="nav-item"><a href="#" class="nav-link p-0 text-secondary hover:text-dark">Dành cho doanh nghiệp</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Utility Actions -->
+        <div class="d-flex align-items-center gap-3">
+            <div class="position-relative d-none d-sm-block">
+                <input type="text" id="store-search" placeholder="Tìm kiếm Surface..."
+                       class="form-control form-control-sm py-1 px-3 pe-5 bg-light focus:bg-white text-xs border-secondary-subtle"
+                       style="font-size: var(--font-size-sm); border-radius: var(--radius-xs); width: 200px;"
+                       aria-label="Tìm kiếm sản phẩm">
+                <i class="bi bi-search text-secondary position-absolute end-0 top-50 translate-middle-y pe-3 pointer-events-none"></i>
+            </div>
+            <button onclick="toggleCartDrawer()" class="btn btn-link p-2 text-secondary hover:text-dark rounded-circle position-relative text-decoration-none" aria-label="Xem giỏ hàng" id="cart-btn">
+                <i class="bi bi-cart3 fs-5"></i>
+            </button>
+            <button class="btn btn-link p-2 text-secondary hover:text-dark rounded-circle text-decoration-none" aria-label="Tài khoản cá nhân">
+                <i class="bi bi-person fs-5"></i>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<!-- 2. MAIN STOREFRONT CONTENT -->
+<main id="main-content" class="flex-grow-1">
+
+    <!-- HERO SECTION 1: Surface Laptop Ultra (Dark Theme as in image) -->
+    <section class="bg-black text-white py-5 px-3 border-bottom border-dark position-relative overflow-hidden" aria-labelledby="hero-title-1">
+        <div class="container-xxl px-4 py-4 text-center">
+
+            <!-- Showcase Header -->
+            <div class="mb-4">
+                <span class="badge bg-primary text-uppercase rounded-1 mb-2" style="font-size: var(--font-size-xs); padding: 5px 10px;">Copilot+ PC</span>
+                <h1 id="hero-title-1" class="fw-bold tracking-tight mb-2 display-5 text-white">
+                    Surface Laptop Ultra
+                </h1>
+                <p class="text-secondary mx-auto" style="max-width: 600px; font-size: var(--font-size-2xl);">
+                    Đỉnh cao thiết kế hiệu năng. Trải nghiệm trí tuệ nhân tạo vượt qua giới hạn của máy tính xách tay thông thường.
+                </p>
+                <div class="mt-3">
+                    <a href="#" class="btn-ms-primary">Tìm hiểu thêm <i class="bi bi-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Sleek Dark Laptop Banner (Khớp hoàn toàn, không khoảng đen thừa) -->
+            <div class="d-flex justify-content-center mt-4">
+                <div class="w-100" style="max-width: 1200px;">
+                    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-R-surface-homepage-tablet?scl=1" class="img-fluid w-100 product-img" alt="Surface Laptop Ultra">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HERO SECTION 2: Surface RTX Spark Dev Box -->
+    <section class="bg-light text-dark py-5 px-3 border-bottom border-secondary-subtle" aria-labelledby="hero-title-2">
+        <div class="container-xxl px-4 text-center">
+
+            <!-- Dev box graphic (Khớp khung hoàn hảo và to) -->
+            <div class="d-flex justify-content-center mb-4">
+                <div class="w-100" style="max-width: 1200px;">
+                    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/MSFT-A-surface-homepage-tablet-new-fy26?scl=1" class="img-fluid w-100 product-img" alt="Surface RTX Spark Dev Box">
+                </div>
+            </div>
+
+            <span class="text-uppercase tracking-wider text-muted font-bold" style="font-size: var(--font-size-xs);">Trạm máy chủ phát triển cục bộ</span>
+            <h2 id="hero-title-2" class="fw-bold tracking-tight mt-1 mb-2 text-dark" style="font-size: 28px;">
+                Surface RTX Spark Dev Box
+            </h2>
+            <p class="text-secondary mx-auto mb-4" style="max-width: 580px; font-size: var(--font-size-lg);">
+                Được thiết kế dành riêng cho lập trình viên và nhà nghiên cứu AI. Tích hợp bộ tăng tốc đồ họa NVIDIA RTX thế hệ mới trực tiếp tại môi trường local của bạn.
+            </p>
+            <a href="#" class="btn-ms-pill-dark">Mua ngay</a>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: Explore all Surface Copilot+ PCs -->
+    <section class="container-xxl px-4 py-5" aria-labelledby="section-copilot-title">
+        <div class="text-center mb-5">
+            <h2 id="section-copilot-title" class="fw-bold text-dark" style="font-size: var(--font-size-4xl); font-size: 28px;">
+                Khám phá dòng máy Surface Copilot+ PC
+            </h2>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Card Left: Surface Pro -->
+            <div class="col-12 col-md-6">
+                <div class="ms-card-promo p-4 text-center d-flex flex-column h-100" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);">
+                    <div>
+                        <!-- Ảnh Surface Pro bo tròn khớp khung tuyệt đối -->
+                        <div class="d-flex justify-content-center py-4">
+                            <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/pro-violet-landing-left-fy25?fmt=png-alpha&wid=786&hei=443&fit=crop" class="img-fluid product-img" alt="Surface Pro" style="max-height: 240px; width: 100%; object-fit: cover;">
+                        </div>
+                        <h3 class="fw-bold text-dark fs-5 mt-3 mb-1">Surface Pro</h3>
+                        <p class="text-secondary small px-lg-5" style="font-size: var(--font-size-md);">Sự cơ động đỉnh cao của máy tính bảng 2-trong-1 kết hợp hiệu năng của một chiếc laptop thực thụ.</p>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#" class="text-decoration-none fw-bold" style="color: var(--color-text-link);">Khám phá Surface Pro <i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Right: Surface Laptop -->
+            <div class="col-12 col-md-6">
+                <div class="ms-card-promo p-4 text-center d-flex flex-column h-100" style="background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);">
+                    <div>
+                        <!-- Ảnh Surface Laptop bo tròn khớp khung (Bạn hãy gán link ảnh thật vào đây) -->
+                        <div class="d-flex justify-content-center py-4">
+                            <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/laptop-platinum-landing-right-fy25?fmt=png-alpha&wid=786&hei=443&fit=crop" class="img-fluid product-img" alt="Surface Laptop" style="max-height: 240px; width: 100%; object-fit: cover;">
+                        </div>
+                        <h3 class="fw-bold text-dark fs-5 mt-3 mb-1">Surface Laptop</h3>
+                        <p class="text-secondary small px-lg-5" style="font-size: var(--font-size-md);">Thiết kế truyền thống siêu mỏng nhẹ, bàn phím gõ êm ái lý tưởng cho mọi công việc văn phòng và sáng tạo.</p>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#" class="text-decoration-none fw-bold" style="color: var(--color-text-link);">Khám phá Surface Laptop <i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Discover the advantages of Surface Copilot+ PCs -->
+    <section class="bg-light py-5 px-3 border-top border-bottom border-secondary-subtle" aria-labelledby="advantages-title">
+        <div class="container-xxl px-4">
+
+            <div class="row g-4 align-items-center mb-5">
+                <div class="col-12 col-lg-5">
+                    <h2 id="advantages-title" class="fw-bold text-dark display-6" style="font-size: 28px; line-height: 1.2;">
+                        Khám phá các ưu điểm vượt trội trên Surface Copilot+ PC
+                    </h2>
+                    <p class="text-secondary mt-3 mb-0" style="font-size: var(--font-size-lg);">
+                        Thế hệ máy tính thông minh hoàn toàn mới, tích hợp bộ xử lý NPU độc lập tối ưu cho các tác vụ xử lý trí tuệ nhân tạo mượt mà.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Cards Display Row -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                <!-- Card Advantage A -->
+                <div class="col">
+                    <div class="ms-card-promo p-4 bg-white h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- Thẻ chứa ảnh ưu thế hiệu năng bo tròn đẹp mắt -->
+                            <div class="bg-light rounded p-4 mb-4 d-flex justify-content-center" style="border-radius: var(--radius-md);">
+                                <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/content-card-surface-laptop-platinum-m365-xbox-game-pass-control-desktop-offertool?scl=1" class="img-fluid product-img" alt="Hiệu năng vượt trội" style="max-height: 120px; width: auto;">
+                            </div>
+                            <span class="badge bg-secondary text-uppercase rounded-1 mb-2" style="font-size: var(--font-size-xs);">HIỆU NĂNG VƯỢT TRỘI</span>
+                            <h4 class="fw-bold text-dark fs-5 mb-2">Nhanh hơn MacBook Air M3</h4>
+                            <p class="text-secondary small mb-0" style="font-size: var(--font-size-md);">Bộ vi xử lý kiến trúc mới giúp tối ưu hóa hiệu năng, khởi chạy ứng dụng nhanh hơn đến 58% so với đối thủ cùng phân khúc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Advantage B -->
+                <div class="col">
+                    <div class="ms-card-promo p-4 bg-white h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- Thẻ chứa ảnh thời lượng pin bo tròn -->
+                            <div class="bg-light rounded p-4 mb-4 d-flex justify-content-center" style="border-radius: var(--radius-md);">
+                                <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/surface-pro-11th-edition-color-desktop-offertool?scl=1" class="img-fluid product-img" alt="Thời lượng pin" style="max-height: 120px; width: auto;">
+                            </div>
+                            <span class="badge bg-success text-uppercase rounded-1 mb-2" style="font-size: var(--font-size-xs);">THỜI LƯỢNG PIN KHỦNG</span>
+                            <h4 class="fw-bold text-dark fs-5 mb-2">Thời lượng pin lên tới 22 giờ</h4>
+                            <p class="text-secondary small mb-0" style="font-size: var(--font-size-md);">Yên tâm làm việc cả ngày dài mà không cần mang theo bộ sạc. Công nghệ tiết kiệm năng lượng thông minh tối ưu hóa theo thói quen sử dụng.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Advantage C -->
+                <div class="col">
+                    <div class="ms-card-promo p-4 bg-white h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- Thẻ chứa ảnh xử lý AI bo tròn -->
+                            <div class="bg-light rounded p-4 mb-4 d-flex justify-content-center" style="border-radius: var(--radius-md);">
+                                <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/surface-essentials-bundle-laptop-15-platinum-cpc-arc-mouse-gray-desktop-offertool?scl=1" class="img-fluid product-img" alt="Xử lý trí tuệ nhân tạo" style="max-height: 120px; width: auto;">
+                            </div>
+                            <span class="badge text-uppercase bg-ms-purple rounded-1 mb-2 text-white" style="font-size: var(--font-size-xs);">XỬ LÝ TRÍ TUỆ NHÂN TẠO</span>
+                            <h4 class="fw-bold text-dark fs-5 mb-2">Trải nghiệm các tính năng AI mới</h4>
+                            <p class="text-secondary small mb-0" style="font-size: var(--font-size-md);">Hỗ trợ tối đa với Recall (Tìm lại lịch sử), dịch trực tiếp Live Captions, hiệu ứng phòng thu Studio Effects thông minh.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: Make the move to Windows 11 -->
+    <section class="container-xxl px-4 py-5" aria-labelledby="windows11-title">
+        <div class="bg-light rounded-4 p-4 p-md-5 border border-secondary-subtle">
+            <div class="row g-4 align-items-center">
+
+                <div class="col-12 col-md-6 ms-gap-container">
+                    <div>
+                        <span class="badge bg-info text-dark text-uppercase rounded-sm" style="font-size: var(--font-size-xs); padding: 5px 10px;">Chuyển Đổi Hệ Điều Hành</span>
+                        <h2 id="windows11-title" class="fw-bold text-dark display-6 mt-2" style="font-size: 26px;">
+                            Sẵn sàng chuyển đổi sang Windows 11
+                        </h2>
+                    </div>
+                    <p class="text-secondary" style="font-size: var(--font-size-lg);">
+                        Đơn giản hóa quy trình chuyển đổi tệp tin, cài đặt cấu hình và các ứng dụng ưa thích của bạn từ máy tính cũ sang thiết bị Surface mới cực kỳ an toàn.
+                    </p>
+                    <div class="pt-2">
+                        <a href="#" class="text-decoration-none fw-bold" style="color: var(--color-text-link);">Xem hướng dẫn chi tiết <i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Khung ảnh Windows 11 lấp đầy và bo góc -->
+                <div class="col-12 col-md-6 d-flex justify-content-center">
+                    <div class="w-100" style="max-width: 500px;">
+                        <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/msft-Windows11-feature-panel-image-800x450:VP5-800x450?fmt=png-alpha"
+                             class="img-fluid w-100 product-img" alt="Chuyển đổi Windows 11">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: See which Surface PC is right for you -->
+    <section class="bg-light py-5 px-3 border-top border-bottom border-secondary-subtle text-center" aria-labelledby="compare-title">
+        <div class="container-xxl px-4 py-3">
+
+            <!-- Khung ảnh So sánh sản phẩm lấp đầy và bo góc -->
+            <div class="d-flex justify-content-center mb-4">
+                <div class="w-100" style="max-width: 800px;">
+                    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/family-color-card-fy25:VP5-1842x1036?fmt=png-alpha" class="img-fluid w-100 product-img" alt="So sánh các dòng Surface">
+                </div>
+            </div>
+
+            <h2 id="compare-title" class="fw-bold text-dark display-6 mb-2" style="font-size: 26px;">
+                Tìm kiếm chiếc Surface phù hợp nhất với bạn
+            </h2>
+            <p class="text-secondary mx-auto mb-4" style="max-width: 500px; font-size: var(--font-size-lg);">
+                So sánh các thông số kỹ thuật về cấu hình, bộ nhớ, kích thước màn hình và dung lượng pin giữa các phiên bản.
+            </p>
+            <a href="#" class="btn-ms-primary">So sánh các dòng máy</a>
+
+        </div>
+    </section>
+
+    <!-- SECTION 7: Frequently asked questions (Pure CSS Collapse Accordion) -->
+    <section class="container-xxl px-4 py-5" aria-labelledby="faq-title">
+        <div class="max-w-3xl mx-auto" style="max-width: 800px;">
+            <h2 id="faq-title" class="fw-bold text-dark mb-4 text-center" style="font-size: 26px;">
+                Câu hỏi thường gặp (FAQs)
+            </h2>
+
+            <!-- Pure HTML5 Detail items -> works perfectly 100% STATIC (NO JS) -->
+            <div class="border-top border-secondary-subtle">
+
+                <!-- Item 1 -->
+                <details class="ms-faq-item">
+                    <summary>Copilot+ PC là gì và nó hoạt động như thế nào?</summary>
+                    <div class="ms-faq-content">
+                        Copilot+ PC là thế hệ máy tính cá nhân Windows hoàn toàn mới, được trang bị bộ vi xử lý chuyên dụng NPU (Neural Processing Unit) có hiệu suất xử lý tác vụ trí tuệ nhân tạo cực cao, mang lại trải nghiệm phần mềm thông minh vượt bậc mà không làm tiêu hao nhiều năng lượng pin của thiết bị.
+                    </div>
+                </details>
+
+                <!-- Item 2 -->
+                <details class="ms-faq-item">
+                    <summary>Tôi có thể nâng cấp từ thiết bị cũ của mình lên Surface mới không?</summary>
+                    <div class="ms-faq-content">
+                        Hoàn toàn được. Microsoft cung cấp các tiện ích đồng bộ hóa đám mây (OneDrive) và các công cụ chuyển đổi tệp tin chính thức để giúp bạn khôi phục toàn bộ ứng dụng, hình ảnh và cài đặt hệ thống sang máy tính Surface mới cực kỳ nhanh chóng.
+                    </div>
+                </details>
+
+                <!-- Item 3 -->
+                <details class="ms-faq-item">
+                    <summary>Surface Slim Pen 2 có được tặng kèm trong hộp sản phẩm không?</summary>
+                    <div class="ms-faq-content">
+                        Thông thường, bút Surface Slim Pen 2 và bàn phím Surface Pro Signature Keyboard là những phụ kiện được bán rời tùy chọn để người dùng có thể thoải mái cá nhân hóa sở thích và nhu cầu công việc của mình.
+                    </div>
+                </details>
+
+                <!-- Item 4 -->
+                <details class="ms-faq-item">
+                    <summary>Bảo hành chính hãng của thiết bị Microsoft Surface kéo dài bao lâu?</summary>
+                    <div class="ms-faq-content">
+                        Tất cả các sản phẩm phần cứng Microsoft Surface chính hãng bán ra đều được áp dụng chính sách bảo hành phần cứng tiêu chuẩn 1 năm (12 tháng) theo đúng chính sách dịch vụ bảo hành toàn cầu từ tập đoàn Microsoft.
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- 3. ACCESSIBLE FOOTER (WCAG 2.2 COMPLIANT CONTRAST) -->
+<footer class="bg-light border-top border-secondary-subtle text-secondary py-5 px-3" aria-label="Chân trang Microsoft">
+    <div class="container-xxl px-4">
+
+        <!-- Social follow us links -->
+        <div class="d-flex align-items-center gap-3 mb-4 pb-4 border-bottom border-secondary-subtle small">
+            <span class="text-dark fw-bold">Theo dõi chúng tôi:</span>
+            <a href="#" class="text-secondary text-decoration-none hover:underline" aria-label="Facebook"><i class="bi bi-facebook fs-6"></i></a>
+            <a href="#" class="text-secondary text-decoration-none hover:underline" aria-label="YouTube"><i class="bi bi-youtube fs-6"></i></a>
+            <a href="#" class="text-secondary text-decoration-none hover:underline" aria-label="Twitter"><i class="bi bi-twitter fs-6"></i></a>
+        </div>
+
+        <div class="row g-4 small">
+
+            <!-- Col 1 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Sản phẩm nổi bật</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Surface Pro 9</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Surface Laptop 5</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Surface Go 3</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Surface Laptop Studio 2</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 2 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Cửa hàng Microsoft</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Hồ sơ tài khoản</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Trung tâm tải xuống</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Trả hàng/Hoàn tiền</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Theo dõi đơn hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Doanh nghiệp</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Microsoft Cloud</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Bảo mật Microsoft</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Surface Enterprise</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Windows 11 Enterprise</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Giáo dục</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Microsoft Education</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Thiết bị cho trường học</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Microsoft Teams cho Giáo dục</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 5 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Nhà phát triển</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Microsoft Visual Studio</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Trung tâm nhà phát triển</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Chương trình đối tác</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 6 -->
+            <div class="col-6 col-md-2">
+                <h3 class="fw-semibold text-dark mb-3" style="font-size: var(--font-size-sm);">Công ty</h3>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Cơ hội nghề nghiệp</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Tin tức công ty</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none hover:underline">Tính bền vững</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Sub-footer copyright -->
+        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-5 pt-4 border-top border-secondary-subtle gap-3 text-secondary small">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-globe"></i> Tiếng Việt (Việt Nam)
+            </div>
+            <div class="d-flex flex-wrap gap-3 text-secondary">
+                <a href="#" class="text-secondary text-decoration-none hover:underline">Liên hệ Microsoft</a>
+                <a href="#" class="text-secondary text-decoration-none hover:underline">Bảo mật</a>
+                <a href="#" class="text-secondary text-decoration-none hover:underline">Điều khoản sử dụng</a>
+                <span>© Microsoft 2026</span>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
